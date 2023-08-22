@@ -1,0 +1,8 @@
+-- ## CREATE DATABASE
+CREATE DATABASE test_database;
+
+-- ## RENAME DATABASE
+ALTER DATABASE test_database RENAME TO test_db;
+
+-- ## DROP DATABASE
+DROP DATABASE test_database;
