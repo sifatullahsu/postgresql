@@ -5,9 +5,8 @@
 -- ## NOT IN, NOT LIKE, NOT ILIKE, NOT BETWEEN, IS NOT NULL
 -- ## LIMIT, OFFSET, ORDER BY, AS
 -- ## JOIN, INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL JOIN, CROSS JOIN
--- ## UNION, GROUP BY
--- ## HAVING, EXISTS
--- ## ANY, ALL, CASE
+-- ## GROUP BY, HAVING, EXISTS, NOT EXISTS, CASE
+-- ## ANY, ALL, UNION, UNION ALL
 
 CREATE TABLE employees (
     employee_id SERIAL PRIMARY KEY,
@@ -17,8 +16,9 @@ CREATE TABLE employees (
     salary NUMERIC(10, 2),
     hire_date DATE
 );
-INSERT INTO employees (first_name, last_name, department, salary, hire_date) VALUES 
-('John', 'Doe', 'Sales', 50000.00, '2020-01-15'),
+
+INSERT INTO employees (first_name, last_name, department, salary, hire_date) 
+VALUES ('John', 'Doe', 'Sales', 50000.00, '2020-01-15'),
 ('Jane', 'Smith', 'HR', 60000.00, '2019-05-10'),
 ('Michael', 'Johnson', 'IT', 75000.00, '2022-03-22'),
 ('Emily', 'Williams', 'Marketing', 55000.00, '2021-11-07'),
@@ -63,32 +63,17 @@ SELECT * FROM employees WHERE department != 'HR';
 -- ## MIN
 SELECT MIN(salary) FROM employees;
 
-SELECT MIN(salary) FROM employees 
-WHERE department = 'HR';
-
 -- ## MAX
 SELECT MAX(salary) FROM employees;
-
-SELECT MAX(salary) FROM employees 
-WHERE department = 'HR';
 
 -- ## COUNT
 SELECT COUNT(employee_id) FROM employees;
 
-SELECT COUNT(department) FROM employees 
-WHERE department = 'HR';
-
 -- ## SUM
 SELECT SUM(salary) FROM employees;
 
-SELECT SUM(salary) FROM employees
-WHERE department = 'HR';
-
 -- ## AVG
 SELECT AVG(salary) FROM employees;
-
-SELECT AVG(salary) FROM employees
-WHERE department = 'HR';
 
 
 -- × --
@@ -169,6 +154,58 @@ ORDER BY salary ASC;
 SELECT MAX(salary) as max_salary FROM employees;
 
 SELECT MAX(salary) max_salary FROM employees;
+
+
+-- × --
+
+
+-- ## JOIN, INNER JOIN
+-- ## LEFT JOIN
+-- ## RIGHT JOIN
+-- ## FULL JOIN
+-- ## CROSS JOIN
+
+
+-- × --
+
+
+-- ## GROUP BY
+SELECT department, AVG(salary) FROM employees
+GROUP BY department;
+
+-- ## HAVING
+-- ## EXISTS
+-- ## NOT EXISTS
+
+-- ## CASE
+SELECT first_name, salary, 
+CASE 
+    WHEN salary >= 60000 THEN 'Above 60k' 
+    WHEN salary >= 50000 THEN 'Above 50k' 
+    ELSE  'Low salary'
+END AS salary_title
+FROM employees; 
+
+
+-- × --
+
+
+-- ## ANY
+-- ## ALL
+
+-- ## UNION
+SELECT employee_id, first_name FROM employees
+UNION
+SELECT  customer_id, first_name FROM customers
+ORDER BY employee_id ASC
+LIMIT 10;
+
+-- ## UNION ALL
+SELECT employee_id, first_name FROM employees
+UNION ALL
+SELECT  customer_id, first_name FROM customers
+ORDER BY employee_id ASC
+LIMIT 10;
 
 
 -- × --
