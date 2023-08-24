@@ -13,10 +13,3 @@ SELECT * FROM student;
 -- ## DELETE RECORDS
 DELETE FROM student
 WHERE student_id = 10;
-
-
-
-SELECT * FROM courses c
-WHERE course_id NOT IN (
-  SELECT course_id FROM enrollment GROUP BY course_id
-);
