@@ -174,6 +174,11 @@ SELECT department, AVG(salary) FROM employees
 GROUP BY department;
 
 -- ## HAVING
+SELECT department, COUNT(*) FROM employees
+GROUP BY department
+HAVING COUNT(*) > 2
+ORDER BY COUNT(*) DESC;
+
 -- ## EXISTS
 -- ## NOT EXISTS
 
