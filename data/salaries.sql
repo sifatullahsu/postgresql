@@ -1,12 +1,12 @@
 CREATE TABLE salaries (
     salary_id SERIAL PRIMARY KEY,
-    employees_id INT REFERENCES employees (employee_id) NOT NULL,
+    employee_id INT REFERENCES employees (employee_id) NOT NULL,
     amount NUMERIC(10, 2) NOT NULL,
     status VARCHAR(20) DEFAULT 'approved',
     remark VARCHAR(256)
 );
 
-INSERT INTO salaries (employees_id, amount) 
+INSERT INTO salaries (employee_id, amount) 
 VALUES (1, 50000),
 (1, 80000),
 (2, 50000),

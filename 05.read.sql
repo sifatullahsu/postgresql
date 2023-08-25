@@ -177,15 +177,15 @@ ORDER BY COUNT(*) DESC;
 -- ## EXISTS
 SELECT * FROM employees
 WHERE EXISTS (
-    SELECT employees_id FROM salaries 
-    WHERE salaries.employees_id = employee_id
+    SELECT employee_id FROM salaries 
+    WHERE salaries.employee_id = employees.employee_id
 );
 
 -- ## NOT EXISTS
 SELECT * FROM employees
 WHERE NOT EXISTS (
     SELECT employee_id FROM salaries
-    WHERE salaries.employees_id = employee_id
+    WHERE salaries.employee_id = employees.employee_id
 );
 
 -- ## CASE
@@ -202,7 +202,18 @@ FROM employees;
 
 
 -- ## ANY
+SELECT * FROM employees
+WHERE employee_id = ANY (
+    SELECT employee_id FROM salaries
+    WHERE amount > 5000
+);
+
 -- ## ALL
+SELECT * FROM employees
+WHERE employee_id != ALL (
+    SELECT employee_id FROM salaries
+    WHERE amount > 5000
+);
 
 -- ## UNION
 SELECT employee_id, first_name FROM employees
